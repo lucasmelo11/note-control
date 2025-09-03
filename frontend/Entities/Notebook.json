@@ -1,0 +1,41 @@
+{
+  "name": "Notebook",
+  "type": "object",
+  "properties": {
+    "numero_patrimonio": {
+      "type": "string",
+      "description": "Número único de patrimônio do notebook"
+    },
+    "marca_modelo": {
+      "type": "string",
+      "description": "Marca e modelo do notebook"
+    },
+    "numero_serie": {
+      "type": "string",
+      "description": "Número de série do fabricante"
+    },
+    "responsavel": {
+      "type": "string",
+      "description": "Nome da pessoa ou setor responsável pelo notebook"
+    },
+    "situacao": {
+      "type": "string",
+      "enum": [
+        "disponivel",
+        "emprestado",
+        "manutencao"
+      ],
+      "default": "disponivel",
+      "description": "Situação atual do notebook"
+    },
+    "observacoes": {
+      "type": "string",
+      "description": "Observações adicionais sobre o notebook"
+    }
+  },
+  "required": [
+    "numero_patrimonio",
+    "marca_modelo",
+    "numero_serie"
+  ]
+}

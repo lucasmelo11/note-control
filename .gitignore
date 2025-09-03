@@ -1,0 +1,59 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.pdb
+*.egg
+*.egg-info/
+dist/
+build/
+*.so
+
+# Django
+*.sqlite3
+db.sqlite3
+media/
+staticfiles/
+.env
+.env.*
+
+# VSCode
+.vscode/
+.history/
+
+# Migrations
+*/migrations/*.pyc
+*/migrations/__pycache__/
+*/migrations/*.py
+
+# Docker
+*.log
+*.pid
+*.db
+*.bak
+*.swp
+*.swo
+*.tmp
+Dockerfile
+*.tar
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Test/coverage
+htmlcov/
+.coverage
+.tox/
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.cache
+.pytest_cache/
+junit.xml
+
+# Others
+*.~

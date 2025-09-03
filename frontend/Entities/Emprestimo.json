@@ -1,0 +1,98 @@
+{
+  "name": "Emprestimo",
+  "type": "object",
+  "properties": {
+    "notebooks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "numero_patrimonio": {
+            "type": "string"
+          },
+          "marca_modelo": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Lista de notebooks emprestados"
+    },
+    "tipo_emprestimo": {
+      "type": "string",
+      "enum": [
+        "individual",
+        "evento"
+      ],
+      "default": "individual",
+      "description": "Tipo de empréstimo"
+    },
+    "nome_solicitante": {
+      "type": "string",
+      "description": "Nome completo do solicitante"
+    },
+    "secretaria": {
+      "type": "string",
+      "description": "Secretaria do solicitante"
+    },
+    "evento_descricao": {
+      "type": "string",
+      "description": "Descrição do evento (para empréstimos tipo evento)"
+    },
+    "data_retirada": {
+      "type": "string",
+      "format": "date",
+      "description": "Data de retirada do notebook"
+    },
+    "prazo_devolucao": {
+      "type": "string",
+      "format": "date",
+      "description": "Prazo previsto para devolução"
+    },
+    "data_devolucao": {
+      "type": "string",
+      "format": "date",
+      "description": "Data efetiva da devolução"
+    },
+    "situacao_devolucao": {
+      "type": "string",
+      "enum": [
+        "bom",
+        "avariado",
+        "manutencao"
+      ],
+      "description": "Estado dos notebooks na devolução"
+    },
+    "observacoes_devolucao": {
+      "type": "string",
+      "description": "Observações sobre a devolução"
+    },
+    "termo_url": {
+      "type": "string",
+      "description": "URL do termo de empréstimo assinado"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "ativo",
+        "devolvido"
+      ],
+      "default": "ativo",
+      "description": "Status do empréstimo"
+    },
+    "tecnico_responsavel": {
+      "type": "string",
+      "description": "Nome do técnico responsável pelo empréstimo"
+    }
+  },
+  "required": [
+    "notebooks",
+    "nome_solicitante",
+    "secretaria",
+    "data_retirada",
+    "prazo_devolucao",
+    "tecnico_responsavel"
+  ]
+}
