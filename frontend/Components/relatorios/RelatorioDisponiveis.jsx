@@ -1,7 +1,9 @@
 import React from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Laptop } from "lucide-react";
+import { FileText, AlertTriangle } from "lucide-react";
+import { format, isPast } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 const ReportWrapper = ({ children, isLoading, data, emptyTitle, emptyDescription, icon: Icon }) => {
   if (isLoading) {
@@ -27,34 +29,48 @@ const ReportWrapper = ({ children, isLoading, data, emptyTitle, emptyDescription
   return children;
 };
 
-export default function RelatorioDisponiveis({ notebooks, isLoading }) {
+export default function RelatorioEmprestados({ emprestimos, isLoading }) {
   return (
     <ReportWrapper
       isLoading={isLoading}
-      data={notebooks}
-      emptyTitle="Nenhum notebook disponível"
-      emptyDescription="Todos os notebooks estão emprestados ou em manutenção."
-      icon={Laptop}
+      data={emprestimos}
+      emptyTitle="Nenhum notebook emprestado"
+      emptyDescription="Todos os notebooks estão disponíveis ou em manutenção."
+      icon={FileText}
     >
       <div className="border rounded-md">
         <Table>
           <TableHeader>
             <TableRow className="bg-slate-50">
-              <TableHead>Patrimônio</TableHead>
-              <TableHead>Marca/Modelo</TableHead>
-              <TableHead>Número de Série</TableHead>
-              <TableHead>Observações</TableHead>
+              <TableHead>Solicitante</TableHead>
+              <TableHead>Notebook (Patrimônio)</TableHead>
+              <TableHead>Data Retirada</TableHead>
+              <TableHead>Prazo Devolução</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {notebooks.map((notebook) => (
-              <TableRow key={notebook.id}>
-                <TableCell className="font-medium">{notebook.numero_patrimonio}</TableCell>
-                <TableCell>{notebook.marca_modelo}</TableCell>
-                <TableCell className="font-mono text-sm">{notebook.numero_serie}</TableCell>
-                <TableCell>{notebook.observacoes || "-"}</TableCell>
-              </TableRow>
-            ))}
+            {emprestimos.map((emprestimo) => {
+              const vencido = isPast(new Date(emprestimo.prazo_devolucao));
+              return (
+                <TableRow key={emprestimo.id}>
+                  <TableCell>
+                    <div className="font-medium">{emprestimo.nome_solicitante}</div>
+                    <div className="text-sm text-slate-500">{emprestimo.secretaria}</div>
+                  </TableCell>
+                  <TableCell>
+                    <div>{emprestimo.marca_modelo}</div>
+                    <div className="text-sm font-mono text-slate-500">{emprestimo.numero_patrimonio}</div>
+                  </TableCell>
+                  <TableCell>{format(new Date(emprestimo.data_retirada), 'dd/MM/yyyy', { locale: ptBR })}</TableCell>
+                  <TableCell className={`font-medium ${vencido ? 'text-red-600' : ''}`}>
+                    <div className="flex items-center gap-2">
+                      {vencido && <AlertTriangle className="w-4 h-4" />}
+                      {format(new Date(emprestimo.prazo_devolucao), 'dd/MM/yyyy', { locale: ptBR })}
+                    </div>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
       </div>
